@@ -1,7 +1,7 @@
 .PHONY: all clean
 .PRECIOUS: %/input.h
 
-all: bin/day01
+all: $(addprefix bin/,$(wildcard day*))
 
 clean:
 	rm -vf bin/* */input.h
@@ -9,8 +9,5 @@ clean:
 %/input.h: %/input.txt
 	xxd -i -n input_txt $< >$@
 
-bin/%: %/main.c %/input.h bin
+bin/%: %/main.c %/input.h
 	clang -O3 -o $@ $<
-
-bin:
-	mkdir $@
